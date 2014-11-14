@@ -17,12 +17,19 @@ namespace Tarantino.Core.DatabaseManager.Services.Impl
 				connectionString.AppendFormat("Initial Catalog={0};", settings.Database);
 			}
 
-			if (settings.IntegratedAuthentication)
-			{
-				connectionString.Append("Integrated Security=True;");
-			}
-			else
-				connectionString.AppendFormat("User ID={0};Password={1};", settings.Username, settings.Password);
+		    if (settings.IntegratedAuthentication)
+		    {
+		        connectionString.Append("Integrated Security=True;");
+		    }
+		    else
+		    {
+		        connectionString.AppendFormat("User ID={0};Password={1};", settings.Username, settings.Password);
+		    }
+
+		    if (!string.IsNullOrEmpty(settings.AttachDbFilename))
+		    {
+                connectionString.AppendFormat("AttachDBFilename={0};", settings.AttachDbFilename);
+		    }
 
 			return connectionString.ToString();
 		}

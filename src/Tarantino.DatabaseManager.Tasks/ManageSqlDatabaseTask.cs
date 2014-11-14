@@ -68,6 +68,13 @@ namespace Tarantino.DatabaseManager.Tasks
 			set { _password = value; }
 		}
 
+        [TaskAttribute("attachDBFilename")]
+        public string AttachDbFilename
+        {
+            get; 
+            set;
+        }
+
         [TaskAttribute("skipFileNameContaining")]
         public string SkipFileNameContaining { get; set;}
 
@@ -76,7 +83,7 @@ namespace Tarantino.DatabaseManager.Tasks
 			try
 			{
 			    var manager = new SqlDatabaseManager();
-                var settings = new ConnectionSettings(Server, Database, IntegratedAuthentication, Username, Password);
+                var settings = new ConnectionSettings(Server, Database, IntegratedAuthentication, Username, Password, AttachDbFilename);
                 var taskAttributes = new TaskAttributes(settings, ScriptDirectory.FullName)
                                          {
                                              SkipFileNameContaining = SkipFileNameContaining,
